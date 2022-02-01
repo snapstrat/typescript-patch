@@ -1,0 +1,54 @@
+diff --git a/lib/typescript.js b/lib/typescript.js
+index c8ac2bc818421de029c03e2e866150cc924c07e0..060c7ee72d069d66bd4515eea719dfb5b836971d 100644
+--- a/lib/typescript.js
++++ b/lib/typescript.js
+@@ -43315,11 +43315,19 @@ var ts;
+      * @internal
+      */
+     function getPnpApi(path) {
+-        var findPnpApi = require("module").findPnpApi;
+-        if (findPnpApi === undefined) {
+-            return undefined;
+-        }
+-        return findPnpApi("".concat(path, "/"));
++      var m;
++      try {
++        m = require("module");
++      } catch (error) {
++      }
++      if (!m) {
++        return undefined;
++      }
++      var findPnpApi = m.findPnpApi;
++      if (findPnpApi === undefined) {
++        return undefined;
++      }
++      return findPnpApi("".concat(path, "/"));
+     }
+     function loadPnpPackageResolution(packageName, containingDirectory) {
+         try {
+@@ -126809,11 +126817,19 @@ var ts;
+             || (!!globalCachePath && ts.startsWith(getCanonicalFileName(globalCachePath), toNodeModulesParent));
+     }
+     function getPnpApi(path) {
+-        var findPnpApi = require("module").findPnpApi;
+-        if (findPnpApi === undefined) {
+-            return undefined;
+-        }
+-        return findPnpApi("".concat(path, "/"));
++      var m;
++      try {
++        m = require("module");
++      } catch (error) {
++      }
++      if (!m) {
++        return undefined;
++      }
++      var findPnpApi = m.findPnpApi;
++      if (findPnpApi === undefined) {
++        return undefined;
++      }
++      return findPnpApi("".concat(path, "/"));
+     }
+     function isImportablePathPnp(fromPath, toPath) {
+         var pnpApi = getPnpApi(fromPath);
